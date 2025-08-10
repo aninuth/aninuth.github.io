@@ -1,28 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>জনের ব্লগ</title><link>https://aninuth.github.io/bn/</link><description>Recent content on জনের ব্লগ</description><generator>Hugo -- gohugo.io</generator><language>bn</language><lastBuildDate>Mon, 08 Jun 2020 08:06:25 +0600</lastBuildDate><atom:link href="https://aninuth.github.io/bn/index.xml" rel="self" type="application/rss+xml"/><item><title>Markdown এর নমুনা</title><link>https://aninuth.github.io/bn/posts/markdown-sample/</link><pubDate>Mon, 08 Jun 2020 08:06:25 +0600</pubDate><guid>https://aninuth.github.io/bn/posts/markdown-sample/</guid><description>&lt;p>এই নমুনা পোস্টটি এই বিষয়গুলো পরীক্ষা করার জন্যে করা হয়েছেঃ&lt;/p>
-&lt;ul>
-&lt;li>একজন ভিন্ন পোস্ট লেখক।&lt;/li>
-&lt;li>সূচীপত্র।&lt;/li>
-&lt;li>Markdown কন্টেন্ট রেন্ডারিং।&lt;/li>
-&lt;li>গণিত রেন্ডারিং।&lt;/li>
-&lt;li>ইমোজি রেন্ডারিং।&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h1 id="markdown-syntax-rendering">Markdown Syntax Rendering&lt;/h1>
-&lt;h2 id="headings">Headings&lt;/h2>
-&lt;p>The following HTML &lt;code>&amp;lt;h1&amp;gt;&lt;/code>—&lt;code>&amp;lt;h6&amp;gt;&lt;/code> elements represent six levels of section headings. &lt;code>&amp;lt;h1&amp;gt;&lt;/code> is the highest section level while &lt;code>&amp;lt;h6&amp;gt;&lt;/code> is the lowest.&lt;/p>
-&lt;h1 id="h1">H1&lt;/h1>
-&lt;h2 id="h2">H2&lt;/h2>
-&lt;h3 id="h3">H3&lt;/h3>
-&lt;h4 id="h4">H4&lt;/h4>
-&lt;h5 id="h5">H5&lt;/h5>
-&lt;h6 id="h6">H6&lt;/h6>
-&lt;h2 id="paragraph">Paragraph&lt;/h2>
-&lt;p>Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.&lt;/p></description></item><item><title>ভূমিকা</title><link>https://aninuth.github.io/bn/posts/introduction/</link><pubDate>Mon, 08 Jun 2020 08:06:25 +0600</pubDate><guid>https://aninuth.github.io/bn/posts/introduction/</guid><description>&lt;p>স্বাগতম! এটি একটি ভূমিকা সূচক পোস্ট। এই পোস্টটি এই বিষয়গুলো পরীক্ষা করার জন্যে করা হয়েছেঃ&lt;/p>
-&lt;ul>
-&lt;li>হেরো ছবিটি পোস্ট এর সাথে একই পথে আছে।&lt;/li>
-&lt;li>এই পোস্টটি সাইডবারের সবার প্রথমে থাকা উচিত।&lt;/li>
-&lt;li>পোস্টের লেখক &lt;code>author.yaml&lt;/code> ফাইল এ যাকে উল্লেখ করা হয়েছে তিনিই থাকবেন।&lt;/li>
-&lt;/ul></description></item><item><title>শর্টকোডের নমুনা</title><link>https://aninuth.github.io/bn/posts/shortcodes/</link><pubDate>Mon, 08 Jun 2020 08:06:25 +0600</pubDate><guid>https://aninuth.github.io/bn/posts/shortcodes/</guid><description>&lt;p>এই নমুনা পোস্টটি এই বিষয়গুলো পরীক্ষা করার জন্যে করা হয়েছেঃ&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>জনের ব্লগ</title><link>https://aninuth.github.io/bn/</link><description>Recent content on জনের ব্লগ</description><generator>Hugo -- gohugo.io</generator><language>bn</language><lastBuildDate>Mon, 08 Jun 2020 08:06:25 +0600</lastBuildDate><atom:link href="https://aninuth.github.io/bn/index.xml" rel="self" type="application/rss+xml"/><item><title>শর্টকোডের নমুনা</title><link>https://aninuth.github.io/bn/posts/shortcodes/</link><pubDate>Mon, 08 Jun 2020 08:06:25 +0600</pubDate><guid>https://aninuth.github.io/bn/posts/shortcodes/</guid><description>&lt;p>এই নমুনা পোস্টটি এই বিষয়গুলো পরীক্ষা করার জন্যে করা হয়েছেঃ&lt;/p>
 &lt;ul>
 &lt;li>ডিফল্ট হিরো ইমেজ।&lt;/li>
 &lt;li>বিভিন্ন শর্টকোড।&lt;/li>
