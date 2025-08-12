@@ -22,7 +22,7 @@ languages:
   en:
     languageCode: en
     languageName: English
-    title: "John's Blog"
+    title: "Ani's Website"
     weight: 1
   bn:
     languageCode: bn
