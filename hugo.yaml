@@ -1,5 +1,5 @@
 baseURL: https://aninuth.github.io
-languageCode: bn
+languageCode: en
 title: "Ani's Personal Website"
 
 # Use Hugo modules to add theme
@@ -24,11 +24,6 @@ languages:
     languageName: English
     title: "Ani's Website"
     weight: 1
-  bn:
-    languageCode: bn
-    languageName: বাংলা
-    title: জনের ব্লগ
-    weight: 2
 # default language for the content
 defaultContentLanguage: en
 
