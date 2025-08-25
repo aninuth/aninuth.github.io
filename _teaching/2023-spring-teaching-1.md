@@ -8,4 +8,4 @@ date: 2023-05-13
 location: "Minneapolis, Minnesota"
 ---
 
-Highly-rated TA for one of the most challenging undergraduate courses (4 semesters)
+Highly-rated TA for one of the most challenging undergraduate courses (5 semesters)
