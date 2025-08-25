@@ -11,48 +11,57 @@ redirect_from:
 
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+* M.S. in Computer Science (Emphasis in Machine Learning), University of Minnesota, 2025
+* B.S. in Computer Science (Minors in Math and Neuroscience), University of Minnesota, 2023
 
 Work experience
 ======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
+* July 2024 - Present: Software Engineer II, Tokyo Electron Limited
+  * Architect, develop scheduling system (C#) for $5MM semiconductor manufacturing tool (C#, 25-50k LOC)
+  * Improve throughput (8%), reduce fatal error rate (3%), save customers $1.3MM annually
+  * Aid in development of XGBoost model (Matlab) to improve etch precision (14%) and reduce etch time (7%)
+  * Built rotational-invariant CNN (PyTorch) to improve photolithography speed (save ~1.5 sec per wafer) 
 
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
 
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
+* May 2024 - Aug 2024: Neuromodulation Software Engineering Intern II, Boston Scientific
+  * Created streamlined framework for Agile development to enhance timeline, improve consistency
+  * Slashed PM approval backlog by 42%, rejected PRs by 30%, raised sprint velocity by 15%
+  * Built Jira Plugin (Java, Spring Boot), wrote scripts for ScriptRunner (Java, Groovy) to enforce framework
+  * Collaborated with SWE Director, PMs, Devs, identified issues with existing Agile processes
+
+* May 2023 - Aug 2023: Neuromodulation Software Engineering Intern, Boston Scientific
+  * Developed iOS app (Swift) to control implant (C++), reduced patient visits (25%), visit duration (~45 min)
+  * Utilized Azure Communications backend allowing patients and clinicians to chat and video/voice call
+  * Collaborated in an Agile, cross-functional team to coordinate, implement project
+
+
   
 Skills
 ======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+* Python
+  * PyTorch
+  * TensorFlow
+  * Jupyter
+  * Pandas
+  * Keras
+  * SciKit
+  * MNE (for EEG analysis/Signal Processing)
+* C#
+* JavaScript
+  * React
+  * Angular
+  * Node.JS
+* SQL
+* C/C++
+* R
+* MATLAB
 
 Publications
 ======
   <ul>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
-  
+    
 Teaching
 ======
   <ul>{% for post in site.teaching reversed %}
