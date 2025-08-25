@@ -5,7 +5,7 @@ category: manuscripts
 permalink: /publication/ReverseMapping
 excerpt: '...extracts structured insights from user interpretations of SHAPley values and maps them onto interactive annotations and multi-view visualizations.'
 date: 2025-07-01
-venue: 'VIS 2025'
+venue: 'VIS'
 paperurl: http://aninuth.github.io/files/ReverseMapping.pdf
 # citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 1</i>. 1(1).'
 ---
