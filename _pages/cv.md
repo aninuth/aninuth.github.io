@@ -23,13 +23,13 @@ Work experience
   * Built rotational-invariant CNN (PyTorch) to improve photolithography speed (save ~1.5 sec per wafer) 
 
 
-* May 2024 - Aug 2024: Neuromodulation Software Engineering Intern II, Boston Scientific
+* May 2023 - Aug 2023: Neuromodulation Software Engineering Intern II, Boston Scientific
   * Created streamlined framework for Agile development to enhance timeline, improve consistency
   * Slashed PM approval backlog by 42%, rejected PRs by 30%, raised sprint velocity by 15%
   * Built Jira Plugin (Java, Spring Boot), wrote scripts for ScriptRunner (Java, Groovy) to enforce framework
   * Collaborated with SWE Director, PMs, Devs, identified issues with existing Agile processes
 
-* May 2023 - Aug 2023: Neuromodulation Software Engineering Intern, Boston Scientific
+* May 2022 - Aug 2022: Neuromodulation Software Engineering Intern, Boston Scientific
   * Developed iOS app (Swift) to control implant (C++), reduced patient visits (25%), visit duration (~45 min)
   * Utilized Azure Communications backend allowing patients and clinicians to chat and video/voice call
   * Collaborated in an Agile, cross-functional team to coordinate, implement project
