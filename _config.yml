@@ -68,8 +68,8 @@ author:
   xing             : # Username
   youtube          : # Username
   zhihu            : # Username
-  aoty             : # Username
-  substack         : # username
+  aoty             : "aninuth"
+  substack         : "aninuth01"
 
 # Publication Category - The following the list of publication categories and their headings
 publication_category:
