@@ -25,7 +25,7 @@ This page is for books - however, a large chunk of my reading nowadays is throug
 * *Convenience Store Woman* by Sayaka Murata
 * *The Book of Ayn* by Lexi Friedman
 * ★ *Exhalation* by Ted Chiang
-
+* *James* by Percival Everett
 ## 2024
 
 * *Five Days At Memorial* by Sheri Fink
