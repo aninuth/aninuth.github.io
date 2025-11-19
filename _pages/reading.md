@@ -6,6 +6,8 @@ author_profile: true
 ---
 
 {% include base_path %}
+This page is for books - however, a large chunk of my reading nowadays is through Substack. Check out what I've liked recently [here](https://substack.com/@aninuth01/likes/).
+
 **Note**: ★ indicates my personal favorites
 
 ## 2025
@@ -24,9 +26,6 @@ author_profile: true
 * *The Book of Ayn* by Lexi Friedman
 * ★ *Exhalation* by Ted Chiang
 
-
-
-
 ## 2024
 
 * *Five Days At Memorial* by Sheri Fink
@@ -42,7 +41,7 @@ author_profile: true
 
 
 
-## 2023 and beyond (these are all books I love and cherish deeply)
+## 2023 and beyond (I'm only listing personal favorites here)
 
 * *Crying In H Mart* by Michelle Zauner
 * *HHhH* by Laurent Binet
@@ -80,10 +79,3 @@ author_profile: true
 * *Existentialism is a Humanism* by Jean-Paul Sartre
 * *The Unbearable Lightness of Being* by Milan Kundera
 * *Stories of Your Life and Others* by Ted Chiang
-
-
-
-
-
-
-
