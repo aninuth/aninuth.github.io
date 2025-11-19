@@ -14,8 +14,8 @@ main:
   # - title: "Talks"
   #   url: /talks/    
 
-  - title: "Teaching"
-    url: /teaching/    
+  # - title: "Teaching"
+  #   url: /teaching/    
     
   # - title: "Portfolio"
   #   url: /portfolio/
@@ -29,8 +29,8 @@ main:
   - title: "Reading"
     url: /reading/
 
-  - title: "Content"
-    url: /content/
+  # - title: "Content"
+  #   url: /content/
     
   # - title: "CV"
   #   url: /cv-json/
