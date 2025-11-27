@@ -6,7 +6,7 @@ author_profile: true
 ---
 
 {% include base_path %}
-This page is for books - however, a large chunk of my reading nowadays is through Substack. Check out what I've liked recently [here](https://substack.com/@aninuth01/likes/). Disclaimer: (linking != agreeing/endorsing)
+This page is for books - however, a large chunk of my reading nowadays is through Substack. Check out what I've liked recently [here](https://substack.com/@aninuth01/likes/). Disclaimer: (liking != agreeing/endorsing)
 
 I'm also a big fan of short story podcasts, which are perfect for my commute. I frequently listen to [Clarkesworld](https://clarkesworldmagazine.com/?feed=podcast) and [Levar Burton Reads](https://levarburton.com/podcasts/)
 
