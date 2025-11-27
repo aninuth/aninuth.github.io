@@ -12,7 +12,7 @@ tags:
   - Autoencoders
 ---
 
-Not every research project ends with a publication, but that doesn't mean it wasn't worth doing. This post chronicles my most meaningful research project yet - I learned more about myself and the research process during this endeavor than I did during the rest of my academic career. I'll be highlighting things I learned using the 💡 symbol - check it out if you want my insights - I promise it's better than learning them the hard way.
+Not every research project ends with a publication, but that doesn't mean it wasn't worth doing. This post chronicles my most meaningful research project yet - I learned more about myself and the research process during this endeavor than I did during the rest of my academic career. I'll mark lessons learned with 💡- learned the hard way so you don't have to.
 
 ## The Problem Space
 
@@ -26,19 +26,18 @@ The clinical motivation was clear: If we could extract any meaningful insights f
 
 ## Breaking Down the Problem
 
-I started out by collecting the 7 TB of data (on a surprisingly compact hard drive) from a post-doc at 6 in the morning. Walking around campus with that was certainly trippy. Then, I just opened each file in VSCode. Just kidding!
+First step: collect 7TB of data at 6am. Do not drop the hard drive. Walking around campus with that was certainly trippy. Then, I just opened each file in VSCode. Just kidding!
 
 When you're staring at raw EEG data for the first time, it's overwhelming. For those of you who have experience with signal processing, this is what the Power Spectral Density (PSD) looks like for a single patient: 
 
 ![PSD](/assets/images/psd.png)
 
-
+Learning how to work with data I couldn't even begin to examine always feels like diving into the deep end - and this problem was a lot worse with the iEEG recordings.
 
 ### 1. The Data Challenges 
-1. There's way less literature (and data) on intracranial EEG data than there is for scalp EEG data. 
-2. Most healthy people aren't volunteering to have their skulls drilled into in order to have electrodes implanted. This means that there's a dearth of healthy control subjects.
-3. Intracranial EEG implants are far less standardized compared to scalp EEG electrodes. With scalp EEG caps, it is common for electrodes to be placed in a standard configurations, but this is not the case for intracranial EEG implants. Each patient's electrodes are placed based on their specific anatomy, and the electrodes are often not even in the same locations for different patients.
-4. The data has both spatial and temporal dimensions, meaning that the traditional methods of time-series analysis and spatial analysis do not suffice.
+1. Healthy people don't volunteer for brain surgery, so there's minimal iEEG data from normal subjects and less literature than scalp EEG.
+2. Intracranial EEG implants are far less standardized compared to scalp EEG electrodes. With scalp EEG caps, it is common for electrodes to be placed in a standard configurations, but this is not the case for intracranial EEG implants. Each patient's electrodes are placed based on their specific anatomy, and the electrodes are often not even in the same locations for different patients.
+3. The data has both spatial and temporal dimensions, meaning that the traditional methods of time-series analysis and spatial analysis do not suffice.
 
 ### 2. Preprocessing Pipeline
 Raw EEG is messy. I had to make informed decisions about:
@@ -55,10 +54,21 @@ I learned this the hard way: I initially spent over a week trying to find the "o
 
 ### 3. Setup
 The most central design decisions are here: 
-**Feature Engineering**: Should I hand-engineer features (spectral power, connectivity measures, etc.) or use end-to-end deep learning?
+**Feature Engineering**: What hand-engineered features should I be using? spectral power, connectivity measures, etc.
+
+A: I had a couple different setups: using power band values, raw time series data, band ratios, and more.
+
 **Electrode Parcellization**: Should I use a priori parcellization (based on brain region definitions, etc) or use a data-driven approach based on test scores and electrode distribution?
+
+A: I built a grid and aggregated electrodes that were in the same cell. This 'naive' approach was meant to reduce any positive effects from knowing the brain regions and their functions.  
+
 **Fully Connected versus sparse network**: How important is message passing between distant nodes?
+
+A. I started out with a fully connected graph (using the entire graph). This was a lot more manageable once I shrunk the grid significantly.
+
 **Evaluating Embeddings**: How should I perform dimensionality reduction on the embeddings and correlate them to test scores in a way that is patient-agnostic?
+
+A. I started out with a simple linear regression model, but even more complex models didn't fare any better, making it clear that no matter what I was doing for SSL, the embeddings weren't actually helpful in predicting brain health.
 
 ## The Research Process 
 
@@ -75,6 +85,12 @@ I dug into the data structure to understand why the graph model couldn't general
 At a 10x10x10 resolution, the overlap between patients was 99%.
 At a 100x100x100 resolution, the overlap dropped to ~25%.
 Beyond that, there was almost no overlap at all.
+
+<details>
+<summary>💡 <b>"Critical Tradeoffs"</b></summary>
+<br>
+Understanding the tradeoffs that emerge during research is more art than science. Learning this skill takes years, but I'm glad I got a painful lesson early. 
+</details>
 
 This meant I was stuck between a rock and a hard place. The difference in electrode locations was extreme, but I either had to use large grid cells (losing patient-to-patient spatial differences) or be comfortable using smaller cells, with less learning power from patient-to-patient. I decided to start with 100x100x100, providing me with at least some overlap that could be useful for generalization. Very slowly, though. Way slower than I was expecting. Leading me to: 
 
@@ -94,7 +110,7 @@ This initial setup was starting to look a little better, but I still wasn't gett
 <details>
 <summary>💡 <b>"Talk To Other People"</b></summary>
 <br>
-Make sure you're accounting for other people's actions. Have they pre-processed your data already? Are there limitations to their data capture that you need to be aware of? The old programming joke (10 hours of googling can save you 10 minutes of reading the manual) is true for research too, except sometimes those 10 minutes come from writing an email.
+Make sure you're accounting for other people's actions. Have they pre-processed your data already, removing signals you might be searching for? Are there limitations to their data capture that you need to be aware of? The old programming joke (10 hours of googling can save you 10 minutes of reading the manual) is true for research too, except sometimes those 10 minutes come from writing an email.
 </details>
 
 
@@ -109,7 +125,13 @@ I overlooked a major difference between scalp and intracranial EEG, and it cost 
 
 Separating by electrode type helped quite a bit, and I could probably have come up with a more complex electrode-type feature that would have helped even more. As it stood, the experimental sequence I had at the moment was as follows:
 
-Masking nodes/edges, reconstruct raw signals/spectra -> VAE to generate node/graph level representation.
+1. Mask individual nodes/edges
+2. Reconstruct raw signals/spectra
+3. Use a VAE to generate node/graph level representation.
+
+
+1. Masking nodes/edges, reconstruct raw signals/spectra -> VAE to generate node/graph level representation.
+
 
 ////spectrogram loss
 
@@ -140,28 +162,25 @@ At various points in this process, I stumbled upon things that could have been d
 
 
 
-## What I Learned
 
-This project didn't result in a publication, but it gave me something arguably more valuable:
+## What I Actually Learned
 
-1. **The research process is iterative**: The sooner you learn this, the more success you'll have.
+The big one: research is messy iteration, not a straight line. I wasted weeks on "optimal" preprocessing before realizing I should've just picked reasonable defaults and started learning from actual results.
 
-2. **"Good enough" is often the right choice**: Waiting for the perfect preprocessing pipeline would have meant never starting. I made informed decisions and iterated.
+Domain knowledge matters way more than I expected. I spent months building fancy models before realizing I was mixing electrode types that fundamentally measure different things. A neurophysiology textbook would've saved me.
 
-3. **Domain knowledge matters**: Understanding EEG physiology helped me debug why certain approaches failed.
+Learning when to call it is a valuable skill. I spent months building fancy models before realizing that the information I was looking for just wasn't there. My life would have been a lot easier if I admitted defeat well before I did.
 
-4. **Negative results are results**: Just because I didn't achieve state-of-the-art performance doesn't mean the work had no value.
 
-5. **Research is more than results**: Experimental design, critical thinking, and understanding limitations are as important as the final numbers.
+
 
 ## Technical Details
 
 For those interested in the specifics:
 
-**Framework**: PyTorch-Geometric
-**Key libraries**: MNE-Python
+
+**ML Libraries**: PyTorch-Geometric
+**Key EEG libraries**: MNE-Python
 
 For additional details, feel free to contact me!
 ---
-
-*This project reinforced something important: research capability isn't just about getting publishable results. It's about asking good questions, designing rigorous experiments, making informed decisions under uncertainty, and learning from both successes and failures.*

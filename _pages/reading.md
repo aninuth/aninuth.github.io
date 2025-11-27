@@ -6,12 +6,14 @@ author_profile: true
 ---
 
 {% include base_path %}
-This page is for books - however, a large chunk of my reading nowadays is through Substack. Check out what I've liked recently [here](https://substack.com/@aninuth01/likes/).
+This page is for books - however, a large chunk of my reading nowadays is through Substack. Check out what I've liked recently [here](https://substack.com/@aninuth01/likes/). Disclaimer: (linking != agreeing/endorsing)
+
+I'm also a big fan of short story podcasts, which are perfect for my commute. I frequently listen to [Clarkesworld](https://clarkesworldmagazine.com/?feed=podcast) and [Levar Burton Reads](https://levarburton.com/podcasts/)
 
 **Note**: ★ indicates my personal favorites
 
 ## 2025
-
+* ★ *Everything Is Tuberculosis* by John Green
 * *Black In Blues* by Imani Perry
 * *The Association of Small Bombs* by Karan Mahajan
 * ★ *Blindness* by Jose Saramago
