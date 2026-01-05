@@ -12,7 +12,11 @@ I'm also a big fan of short story podcasts, which are perfect for my commute. I 
 
 **Note**: ★ indicates my personal favorites
 
+## 2026
+* ★ *There Is No Antimemetics Division* by qntm
 ## 2025
+* *Notes To John* by Joan Didion
+* ★ *I Who Have Never Known Men* by Jacqueline Harpman
 * ★ *Everything Is Tuberculosis* by John Green
 * *Black In Blues* by Imani Perry
 * *The Association of Small Bombs* by Karan Mahajan
