@@ -14,6 +14,7 @@ I'm also a big fan of short story podcasts, which are perfect for my commute. I 
 
 ## 2026
 * ★ *There Is No Antimemetics Division* by qntm
+* ★ *I'm Glad My Mom Died* by Jeanette McCurdy
 ## 2025
 * *Notes To John* by Joan Didion
 * ★ *I Who Have Never Known Men* by Jacqueline Harpman
