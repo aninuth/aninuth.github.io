@@ -11,7 +11,7 @@ redirect_from:
 
 Hi there! I'm Ani, an upcoming graduate of the University of Minnesota with an M.S. in Computer Science (ML Emphasis). I also earned my undergraduate degree at the U of M, with a B.S. in Computer Science and minors in Math and Neuroscience. I am currently working as a Software Engineer II at Tokyo Electron Limited, a semiconductor company based in Minneapolis, MN.
 
-My master's project, (which turned into a first-author paper at VIS 2025), focused on using Large Language Models (LLMs) to provide interactive visualizations and explanations for users to better understand SHAPley values. Previously, my research centered on using Graph Neural Networks (GNNs) and self-supervised learning to extract clinically relevant information from intracranial EEG data in patients with epilepsy. [Read more about that project here!](/posts/2025-08-26-eeg-ml-project/)
+My master's project, (which turned into a first-author paper at VIS 2025), focused on using Large Language Models (LLMs) to provide interactive visualizations and explanations for users to better understand SHAPley values. Previously, my research centered on using Graph Neural Networks (GNNs) and self-supervised learning to extract clinically relevant information from intracranial EEG data in patients with epilepsy. [Read more about that project here!](/posts/2025/08/eeg-ml-project/)
 
 ## Beyond Research
 
