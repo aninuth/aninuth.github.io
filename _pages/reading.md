@@ -13,6 +13,13 @@ I'm also a big fan of short story podcasts, which are perfect for my commute. I 
 **Note**: ★ indicates my personal favorites
 
 ## 2026
+* ★ *On The Edge* by Nate Silver
+* *Irrational Exuberance* by Robert Shiller
+* ★ *Consider The Lobster* by David Foster Wallace
+* *Mistborn: The Final Empire* by Brandon Sanderson
+* *Warbreaker* by Brandon Sanderson
+* ★ *When We Cease To Understand the World* by Benjamin Labatut
+* *Trip* by Amie Barrodale
 * ★ *There Is No Antimemetics Division* by qntm
 * ★ *I'm Glad My Mom Died* by Jeanette McCurdy
 ## 2025
