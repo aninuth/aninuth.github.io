@@ -1286,7 +1286,7 @@ function saveFavs(favs) {
 let favs = loadFavs();
 
 // Collect all tags
-const allTags = [...new Set(BLOGS.flatMap(b => b.tags))].sort();
+const allTags = [...new Set(BLOGS.reduce((acc, b) => acc.concat(b.tags), []))].sort();
 
 let activeTags = new Set();
 let searchQuery = "";
@@ -1296,14 +1296,14 @@ const tagBar = document.getElementById("tag-bar");
 const clearBtn = document.createElement("button");
 clearBtn.className = "tag-btn clear-btn";
 clearBtn.textContent = "Clear";
-clearBtn.onclick = () => { activeTags.clear(); renderTagBar(); renderGrid(); };
+clearBtn.onclick = function() { activeTags.clear(); renderTagBar(); renderGrid(); };
 
 allTags.forEach(tag => {
   const btn = document.createElement("button");
   btn.className = "tag-btn";
   btn.dataset.tag = tag;
   btn.textContent = tag;
-  btn.onclick = () => {
+  btn.onclick = function() {
     if (activeTags.has(tag)) activeTags.delete(tag);
     else activeTags.add(tag);
     renderTagBar();
@@ -1326,11 +1326,11 @@ const countEl = document.getElementById("rl-count");
 function matchesBlog(blog) {
   const q = searchQuery.toLowerCase();
   if (q) {
-    const hay = [blog.name, blog.author, blog.desc, ...blog.tags].join(" ").toLowerCase();
+    const hay = [blog.name, blog.author, blog.desc].concat(blog.tags).join(" ").toLowerCase();
     if (!hay.includes(q)) return false;
   }
   if (activeTags.size > 0) {
-    if (!blog.tags.some(t => activeTags.has(t))) return false;
+    if (!blog.tags.some(function(t) { return activeTags.has(t); })) return false;
   }
   return true;
 }
@@ -1351,13 +1351,13 @@ function renderGrid() {
   countEl.textContent = `Showing ${matches.length} of ${BLOGS.length} blogs`;
 
   // Sort: favourites first, then alphabetical
-  matches.sort((a, b) => {
+  matches.sort(function(a, b) {
     const af = !!favs[a.url], bf = !!favs[b.url];
     if (af !== bf) return af ? -1 : 1;
     return a.name.localeCompare(b.name);
   });
 
-  matches.forEach(blog => {
+  matches.forEach(function(blog) {
     const card = document.createElement("div");
     card.className = "rl-card";
 
@@ -1390,7 +1390,7 @@ function renderGrid() {
     star.textContent = "★";
     star.title = isFav ? "Remove from favourites" : "Mark as favourite";
     star.setAttribute("aria-label", isFav ? "Unfavourite" : "Favourite");
-    star.onclick = () => {
+    star.onclick = function() {
       if (favs[blog.url]) delete favs[blog.url];
       else favs[blog.url] = true;
       saveFavs(favs);
@@ -1429,7 +1429,7 @@ function renderGrid() {
 }
 
 // ── Search ──
-document.getElementById("rl-search").addEventListener("input", e => {
+document.getElementById("rl-search").addEventListener("input", function(e) {
   searchQuery = e.target.value.trim();
   renderGrid();
 });
