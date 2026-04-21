@@ -1,0 +1,1438 @@
+---
+layout: default
+title: Substacks
+permalink: /substacks/
+---
+
+<style>
+  /* ── Reading List Page Styles ── */
+  .rl-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+    font-family: inherit;
+  }
+
+  .rl-header {
+    margin-bottom: 2rem;
+  }
+
+  .rl-header h1 {
+    font-size: 1.9rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .rl-header p {
+    color: #666;
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  /* ── Search ── */
+  .rl-search {
+    width: 100%;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.95rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 1.25rem;
+    box-sizing: border-box;
+    font-family: inherit;
+  }
+
+  .rl-search:focus {
+    outline: none;
+    border-color: #52adc8;
+    box-shadow: 0 0 0 2px rgba(82,173,200,0.15);
+  }
+
+  /* ── Tag Filter Bar ── */
+  .rl-tag-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+  }
+
+  .rl-tag-bar-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #888;
+    margin-right: 0.25rem;
+    white-space: nowrap;
+  }
+
+  .tag-btn {
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #444;
+    transition: all 0.15s ease;
+    font-family: inherit;
+    line-height: 1.4;
+  }
+
+  .tag-btn:hover {
+    border-color: #52adc8;
+    color: #52adc8;
+  }
+
+  .tag-btn.active {
+    background: #52adc8;
+    border-color: #52adc8;
+    color: #fff;
+  }
+
+  .tag-btn.clear-btn {
+    background: #f4f4f4;
+    border-color: #ddd;
+    color: #888;
+  }
+
+  .tag-btn.clear-btn:hover {
+    background: #e8e8e8;
+    color: #444;
+  }
+
+  /* ── Results count ── */
+  .rl-count {
+    font-size: 0.83rem;
+    color: #888;
+    margin-bottom: 1rem;
+  }
+
+  /* ── Grid ── */
+  .rl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  /* ── Card ── */
+  .rl-card {
+    border: 1px solid #e4e4e4;
+    border-radius: 8px;
+    padding: 1rem 1.1rem;
+    background: #fff;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+  }
+
+  .rl-card:hover {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    border-color: #c8c8c8;
+  }
+
+  .rl-card.hidden {
+    display: none;
+  }
+
+  /* ── Card Header ── */
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .card-title-wrap {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-title {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: #222;
+    text-decoration: none;
+    display: block;
+    line-height: 1.3;
+    word-break: break-word;
+  }
+
+  .card-title:hover {
+    color: #52adc8;
+  }
+
+  .card-author {
+    font-size: 0.78rem;
+    color: #888;
+    margin-top: 0.15rem;
+  }
+
+  /* ── Star / Favorite ── */
+  .star-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.1rem 0.15rem;
+    font-size: 1.05rem;
+    line-height: 1;
+    color: #ccc;
+    transition: color 0.15s, transform 0.15s;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  .star-btn:hover {
+    color: #f0b429;
+    transform: scale(1.15);
+  }
+
+  .star-btn.starred {
+    color: #f0b429;
+  }
+
+  /* ── Description ── */
+  .card-desc {
+    font-size: 0.83rem;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ── Card Footer ── */
+  .card-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 0.35rem;
+  }
+
+  /* Inline tag pill */
+  .tag-pill {
+    font-size: 0.72rem;
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    background: #f0f4f8;
+    color: #555;
+    white-space: nowrap;
+  }
+
+  /* ── Difficulty badge ── */
+  .diff-badge {
+    font-size: 0.72rem;
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    font-weight: 600;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .diff-1 { background: #e6f4ea; color: #2d7a3a; }
+  .diff-2 { background: #fff4e0; color: #9a6300; }
+  .diff-3 { background: #fde8e8; color: #b93535; }
+
+  /* ── No results ── */
+  .rl-empty {
+    grid-column: 1/-1;
+    text-align: center;
+    color: #aaa;
+    padding: 3rem 1rem;
+    font-size: 0.95rem;
+  }
+</style>
+
+<div class="rl-wrap">
+  <div class="rl-header">
+    <h1>Reading List</h1>
+    <p>Substacks and blogs I follow — click tags to filter, ★ to mark favorites.</p>
+  </div>
+
+  <input class="rl-search" type="search" id="rl-search" placeholder="Search by name, author, or topic…" aria-label="Search blogs">
+
+  <div class="rl-tag-bar" id="tag-bar">
+    <span class="rl-tag-bar-label">Filter:</span>
+  </div>
+
+  <div class="rl-count" id="rl-count"></div>
+
+  <div class="rl-grid" id="rl-grid"></div>
+</div>
+
+<script>
+const BLOGS = [
+  {
+    name: "12 Grams of Carbon",
+    url: "https://12gramsofcarbon.com/",
+    author: "",
+    desc: "Tech, AI, and startup culture through a cultural/anthropological lens — not hustle-grindy, not purely technical.",
+    tags: ["AI", "Tech", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Jasmine Sun",
+    url: "https://jasmi.news/",
+    author: "Jasmine Sun",
+    desc: "Journalist covering tech and AI from an outsider/societal perspective.",
+    tags: ["AI", "Tech", "Culture", "Journalism"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Saffron Huang",
+    url: "https://substack.com/@saffron",
+    author: "Saffron Huang",
+    desc: "AI researcher on Anthropic's Societal Impact team. Poetic, literary, HCI-oriented writing on technology's human dimensions.",
+    tags: ["AI", "HCI", "Tech", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Jameela Al Jamil",
+    url: "https://jameelajamil.substack.com/",
+    author: "Jameela Al Jamil",
+    desc: "Feminism, media, fashion, and Hollywood culture.",
+    tags: ["Feminism", "Culture", "Media"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Age of Invention",
+    url: "https://www.ageofinvention.xyz/",
+    author: "",
+    desc: "History focusing on innovation — how and why breakthroughs happen.",
+    tags: ["History", "Innovation", "Science"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Alex Kesin",
+    url: "https://www.alexkesin.com/",
+    author: "Alex Kesin",
+    desc: "Biotech, pharmaceuticals, and drug delivery — cultural and economic implications over technical methods.",
+    tags: ["Biotech", "Science", "Economics"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Alexey Guzey",
+    url: "https://guzey.substack.com/",
+    author: "Alexey Guzey",
+    desc: "Science and AI — meta-level thinking about research and knowledge production.",
+    tags: ["Science", "AI", "Research"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "alf42069",
+    url: "https://alf42069.substack.com/",
+    author: "",
+    desc: "Literature and art with great recs; very post-structuralist and post-colonial in orientation.",
+    tags: ["Literature", "Art", "Culture"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Andy Masley",
+    url: "https://blog.andymasley.com/",
+    author: "Andy Masley",
+    desc: "AI and climate — well-sourced, often contrarian, leans utilitarian/rationalist.",
+    tags: ["AI", "Climate", "Tech", "Rationalism"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Apricitas Economics",
+    url: "https://www.apricitas.io/about",
+    author: "Joseph Politano",
+    desc: "Data-driven macroeconomics and public policy.",
+    tags: ["Economics", "Policy", "Data"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Argmin Blogpost",
+    url: "https://www.argmin.net/",
+    author: "Ben Recht",
+    desc: "AI, optimal decision making, game theory, and math. Requires some technical background.",
+    tags: ["AI", "Math", "Game Theory"],
+    diff: 3,
+    fav: false
+  },
+  {
+    name: "Asimov Press",
+    url: "https://www.asimov.press/about",
+    author: "",
+    desc: "Biology and biotech — some technical background required.",
+    tags: ["Biology", "Biotech", "Science"],
+    diff: 3,
+    fav: false
+  },
+  {
+    name: "Astral Codex Ten",
+    url: "https://www.astralcodexten.com/",
+    author: "Scott Alexander",
+    desc: "Rationalism and everything else. A must-read regardless of category.",
+    tags: ["Rationalism", "Philosophy", "Culture", "Science"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Bentham's Newsletter",
+    url: "https://benthams.substack.com/",
+    author: "",
+    desc: "Effective Altruism, rationalism, animal welfare, and philosophy.",
+    tags: ["EA", "Rationalism", "Philosophy", "Animal Welfare"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Bet On It",
+    url: "https://betonit.substack.com/",
+    author: "Bryan Caplan",
+    desc: "Rationality and economics from a libertarian-leaning economist.",
+    tags: ["Rationalism", "Economics"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Big Iff True",
+    url: "https://bigifftrue.substack.com/",
+    author: "Daniel Munoz",
+    desc: "Philosophy, politics, and economics.",
+    tags: ["Philosophy", "Politics", "Economics"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Blundercheck",
+    url: "https://blundercheck.timberschroff.com/",
+    author: "Timber Stinton-Schroff",
+    desc: "Systems thinking, decision making, rationality, safety, and technology.",
+    tags: ["Rationalism", "Systems Thinking", "Tech", "Decision Making"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Cartoon Hate Her",
+    url: "https://www.cartoonshateher.com/",
+    author: "",
+    desc: "Relationships, gender, and online culture.",
+    tags: ["Relationships", "Gender", "Culture", "Internet"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Cognitive Wonderland",
+    url: "https://cognitivewonderland.substack.com/",
+    author: "Tommy Blanchard",
+    desc: "Neuroscience, philosophy of mind, and science — no technical knowledge needed.",
+    tags: ["Neuroscience", "Philosophy", "Science"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "China + Silicon Valley",
+    url: "https://afraw.substack.com/",
+    author: "",
+    desc: "China and Silicon Valley culture.",
+    tags: ["China", "Tech", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Construction Physics",
+    url: "https://www.construction-physics.com/",
+    author: "Brian Potter",
+    desc: "Construction, technological innovation, and infrastructure — how things get built.",
+    tags: ["Innovation", "History", "Policy"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Counting Atoms",
+    url: "https://chadorzel.substack.com/",
+    author: "Chad Orzel",
+    desc: "Science, higher ed, politics, and sports.",
+    tags: ["Science", "Higher Ed", "Politics"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "The Daminger Dispatch",
+    url: "https://allisondaminger.substack.com/",
+    author: "Allison Daminger",
+    desc: "Sociology, gender, parenting, and relationships.",
+    tags: ["Sociology", "Gender", "Parenting", "Relationships"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "De Novo",
+    url: "https://denovo.substack.com/about",
+    author: "Metacelsus",
+    desc: "Biology and stem cells — some technical knowledge required.",
+    tags: ["Biology", "Science"],
+    diff: 3,
+    fav: false
+  },
+  {
+    name: "Defender of the Basic",
+    url: "https://defenderofthebasic.substack.com/",
+    author: "",
+    desc: "Culture, science, society, and internet.",
+    tags: ["Culture", "Science", "Internet"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "dendrite",
+    url: "https://ccli.substack.com/",
+    author: "",
+    desc: "Academia, neuroscience, and science.",
+    tags: ["Neuroscience", "Science", "Higher Ed"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "The Diff",
+    url: "https://diff.substack.com/",
+    author: "Byrne Hobart",
+    desc: "Finance and tech — thoughtful, not hustle culture.",
+    tags: ["Finance", "Tech", "Economics"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Zvi Mowshowitz",
+    url: "https://thezvi.substack.com/",
+    author: "Zvi Mowshowitz",
+    desc: "AI, policy, rationality, economics, and politics.",
+    tags: ["AI", "Rationalism", "Policy", "Economics", "Politics"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Dynomight",
+    url: "https://dynomight.substack.com/",
+    author: "",
+    desc: "Science and stuff — eclectic, careful, and funny.",
+    tags: ["Science", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Ends Don't Justify the Means",
+    url: "https://endsdontjustifythemeans.com/",
+    author: "Rebecca Lowe",
+    desc: "Philosophy, freedom, liberalism, and literature.",
+    tags: ["Philosophy", "Literature", "Politics"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "En Sainte",
+    url: "https://ensainte.substack.com/",
+    author: "",
+    desc: "Dating and relationships.",
+    tags: ["Relationships", "Dating"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Eric Turkheimer",
+    url: "https://ericturkheimer.substack.com/",
+    author: "Eric Turkheimer",
+    desc: "Skepticism, psychiatry, post-rationalism, genetics, and science.",
+    tags: ["Science", "Psychiatry", "Genetics", "Rationalism"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Escaping Flatland",
+    url: "https://www.henrikkarlsson.xyz/",
+    author: "Henrik Karlsson",
+    desc: "Relationships, thinking, and agency — deeply personal and philosophical essays.",
+    tags: ["Philosophy", "Culture", "Relationships"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Etymology Nerd",
+    url: "https://etymology.substack.com/",
+    author: "Adam Aleksic",
+    desc: "Linguistics, etymology, social dynamics, and internet culture.",
+    tags: ["Linguistics", "Internet", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Experience Machines",
+    url: "https://experiencemachines.substack.com/",
+    author: "Robert Long",
+    desc: "AI welfare — philosophical takes on AI moral status.",
+    tags: ["AI", "Philosophy", "EA"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Experimental History",
+    url: "https://www.experimental-history.com/",
+    author: "Adam Mastroianni",
+    desc: "History, society, and culture — irreverent and well-researched.",
+    tags: ["History", "Culture", "Science"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Faith Zapata",
+    url: "https://faithcore.substack.com/",
+    author: "Faith Zapata",
+    desc: "Love, relationships, and social life.",
+    tags: ["Relationships", "Dating", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Fake Pixels",
+    url: "https://fakepixels.substack.com/",
+    author: "Tina He",
+    desc: "Technology and markets.",
+    tags: ["Tech", "Finance", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Stephanie Murray",
+    url: "https://stephaniehmurray.substack.com/",
+    author: "Stephanie Murray",
+    desc: "Family, parenting, public policy, gender, and relationships.",
+    tags: ["Parenting", "Policy", "Gender", "Relationships"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Five Twelve Thirteen",
+    url: "https://fivetwelvethirteen.substack.com/",
+    author: "Dylan Kane",
+    desc: "Math, education, and pedagogy.",
+    tags: ["Math", "Education"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Freddie deBoer",
+    url: "https://freddiedeboer.substack.com/",
+    author: "Freddie deBoer",
+    desc: "Politics — left-leaning, contrarian, literary.",
+    tags: ["Politics", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Jen Shahade",
+    url: "https://jenshahade.substack.com/",
+    author: "Jen Shahade",
+    desc: "Chess, poker, games, logic, and puzzles.",
+    tags: ["Games", "Decision Making", "Logic"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Go Long TD",
+    url: "https://www.golongtd.com/",
+    author: "",
+    desc: "Long-form sports journalism.",
+    tags: ["Sports", "Journalism"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Wollenblog",
+    url: "https://wollenblog.substack.com/",
+    author: "",
+    desc: "Philosophy, humor, rationalism, and effective altruism.",
+    tags: ["Philosophy", "Rationalism", "EA"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Good Father UK",
+    url: "https://goodfatheruk.substack.com/",
+    author: "",
+    desc: "Parenting and fatherhood.",
+    tags: ["Parenting"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Good Science Project",
+    url: "https://goodscience.substack.com/",
+    author: "",
+    desc: "Science funding and academia.",
+    tags: ["Science", "Higher Ed", "Policy"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Gradient Ascendant",
+    url: "https://aiascendant.com/",
+    author: "Jon Evans",
+    desc: "AI/ML research, culture, and society.",
+    tags: ["AI", "Culture", "Tech"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Gregory Katz",
+    url: "https://gregorykatz.substack.com/",
+    author: "Gregory Katz",
+    desc: "Evidence-based medicine and cardiology.",
+    tags: ["Medicine", "Science"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Hardly Working",
+    url: "https://hardlyworking1.substack.com/",
+    author: "",
+    desc: "Philosophy, psychology, and miscellaneous.",
+    tags: ["Philosophy", "Psychology"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Color Me Loverly",
+    url: "https://www.colormeloverly.com/",
+    author: "Clara",
+    desc: "Chronically online culture.",
+    tags: ["Internet", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Nicholas Decker",
+    url: "https://nicholasdecker.substack.com/",
+    author: "Nicholas Decker",
+    desc: "Economics.",
+    tags: ["Economics"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "I Might Be Wrong",
+    url: "https://www.imightbewrong.org/",
+    author: "",
+    desc: "Comedy and politics.",
+    tags: ["Politics", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "The Infinitesimal",
+    url: "https://theinfinitesimal.substack.com/",
+    author: "Sasha Guzev",
+    desc: "Genetics, genomics, heritability, and science.",
+    tags: ["Genetics", "Science"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Internet Princess",
+    url: "https://internetprincess.substack.com/",
+    author: "Rayne Fisher-Quann",
+    desc: "Internet, culture, feminism, and reading.",
+    tags: ["Internet", "Culture", "Feminism"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "The Intrinsic Perspective",
+    url: "https://www.theintrinsicperspective.com/about",
+    author: "Erik Koel",
+    desc: "Science, literature, history, and cultural commentary.",
+    tags: ["Science", "Literature", "Culture", "History"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Jack's Lab",
+    url: "https://jacktlab.substack.com/",
+    author: "",
+    desc: "EA, rationalism, and AI.",
+    tags: ["EA", "Rationalism", "AI"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Kenny Easwaran",
+    url: "https://kennyeaswaran.substack.com/",
+    author: "Kenny Easwaran",
+    desc: "EA, rationalism, and philosophy.",
+    tags: ["EA", "Rationalism", "Philosophy"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Aella",
+    url: "https://aella.substack.com/",
+    author: "Aella",
+    desc: "EA, rationalism, gender, sex, and social culture.",
+    tags: ["EA", "Rationalism", "Gender", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Kyla Scanlon",
+    url: "https://kyla.substack.com/",
+    author: "Kyla Scanlon",
+    desc: "Economics — accessible and creative.",
+    tags: ["Economics"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Maria Konnikova",
+    url: "https://mariakonnikova.substack.com/",
+    author: "Maria Konnikova",
+    desc: "Risk, poker, gambling, and decision making.",
+    tags: ["Decision Making", "Games", "Psychology"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Liminal MD",
+    url: "https://liminalmd.substack.com/",
+    author: "",
+    desc: "Medicine and healthcare.",
+    tags: ["Medicine"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Linch",
+    url: "https://linch.substack.com/",
+    author: "Linch Zhang",
+    desc: "EA, rationalism, philosophy, literature, and sci-fi.",
+    tags: ["EA", "Rationalism", "Philosophy", "Literature"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Love Me Like a Robot",
+    url: "https://lovemelikearobot.substack.com/",
+    author: "Lana Li",
+    desc: "Gender, dating, relationships, and data.",
+    tags: ["Gender", "Relationships", "Dating", "Data"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Gary Marcus",
+    url: "https://garymarcus.substack.com/",
+    author: "Gary Marcus",
+    desc: "LLMs and AI — skeptical perspective.",
+    tags: ["AI", "Tech"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Five Points",
+    url: "https://fivepoints.mattglassman.net/",
+    author: "Matt Glassman",
+    desc: "Politics and political science.",
+    tags: ["Politics"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Weibo / China Online",
+    url: "https://weibo.substack.com/",
+    author: "",
+    desc: "China, online culture, and social media.",
+    tags: ["China", "Internet", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Nadia Asparouhova",
+    url: "https://nayafia.substack.com/",
+    author: "Nadia Asparouhova",
+    desc: "Science, online culture, and anthropology.",
+    tags: ["Science", "Internet", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Moontower",
+    url: "https://moontower.substack.com/",
+    author: "",
+    desc: "Quantitative finance, risk, games, and life advice.",
+    tags: ["Finance", "Decision Making", "Games"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Moral Law Within",
+    url: "https://morallawwithin.substack.com/",
+    author: "",
+    desc: "Philosophy, Kant, and effective altruism.",
+    tags: ["Philosophy", "EA"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "More Than Moore",
+    url: "https://morethanmoore.substack.com/",
+    author: "",
+    desc: "Semiconductors and chips.",
+    tags: ["Tech", "Hardware"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Nabeel Qureshi",
+    url: "https://nabeelqu.substack.com/",
+    author: "Nabeel Qureshi",
+    desc: "Writing, life advice, and vaguely productivity/agency-oriented — not cringe.",
+    tags: ["Culture", "Decision Making"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Darby Saxbe",
+    url: "https://darbysaxbe.substack.com/",
+    author: "Darby Saxbe",
+    desc: "Parenting and pop neuroscience — not cringe.",
+    tags: ["Parenting", "Neuroscience"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Josh Queipo — NFL Contracts",
+    url: "https://joshqueipo.substack.com/",
+    author: "Josh Queipo",
+    desc: "NFL contract analysis.",
+    tags: ["Sports", "Finance"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Nina Panickssery",
+    url: "https://blog.ninapanickssery.com/",
+    author: "Nina Panickssery",
+    desc: "AI, parenting, and life advice.",
+    tags: ["AI", "Parenting"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Noahpinion",
+    url: "https://www.noahpinion.blog/",
+    author: "Noah Smith",
+    desc: "Economics, AI, and EA/rationalism.",
+    tags: ["Economics", "AI", "Rationalism"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Not Boring",
+    url: "https://www.notboring.co/",
+    author: "Packy McCormick",
+    desc: "Tech and startups — detailed, technical, science and engineering focused.",
+    tags: ["Tech", "Innovation", "Science"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Sam Kriss",
+    url: "https://samkriss.substack.com/",
+    author: "Sam Kriss",
+    desc: "Tech, politics, life, literature, and poetry — hard to categorize.",
+    tags: ["Tech", "Politics", "Literature", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Owl Posting",
+    url: "https://www.owlposting.com/",
+    author: "Abhishaike Mahajan",
+    desc: "Biology, technology, biotech, and ML — some technical knowledge needed.",
+    tags: ["Biology", "Biotech", "AI", "Tech"],
+    diff: 3,
+    fav: false
+  },
+  {
+    name: "Paul Krugman",
+    url: "https://paulkrugman.substack.com/",
+    author: "Paul Krugman",
+    desc: "Economics — Nobel laureate perspective.",
+    tags: ["Economics", "Policy"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Pencilling Out",
+    url: "https://pencillingout.substack.com/",
+    author: "Zak Yudhishthu",
+    desc: "Housing policy, economics, Twin Cities, and Chicago.",
+    tags: ["Policy", "Economics", "Urban"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Performative Bafflement",
+    url: "https://performativebafflement.substack.com/",
+    author: "",
+    desc: "Evidence-based deep dives into politics, culture, and gender.",
+    tags: ["Politics", "Culture", "Gender", "Data"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Personal Canon",
+    url: "https://www.personalcanon.com/",
+    author: "",
+    desc: "Art, literature, writing, and culture.",
+    tags: ["Art", "Literature", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Philosophize This!",
+    url: "https://philosophizethis.substack.com/",
+    author: "",
+    desc: "Philosophy — accessible, well-sourced, the famous podcast in blog form.",
+    tags: ["Philosophy"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Abi Olvera",
+    url: "https://abio.substack.com/",
+    author: "Abi Olvera",
+    desc: "Politics, economics, and institutions.",
+    tags: ["Politics", "Economics"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Programmable Mutter",
+    url: "https://www.programmablemutter.com/",
+    author: "",
+    desc: "Technology and politics.",
+    tags: ["Tech", "Politics"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Protocolized",
+    url: "https://protocolized.summerofprotocols.com/",
+    author: "Venkatesh Rao",
+    desc: "Protocols and systems thinking.",
+    tags: ["Systems Thinking", "Tech"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Psychiatry at the Margins",
+    url: "https://www.psychiatrymargins.com/",
+    author: "Awais Aftab",
+    desc: "Psychology, psychiatry, and diagnosis — some technical knowledge required.",
+    tags: ["Psychiatry", "Psychology", "Science"],
+    diff: 3,
+    fav: false
+  },
+  {
+    name: "The Reactor",
+    url: "https://thereactor.substack.com/",
+    author: "",
+    desc: "Engineering and writing.",
+    tags: ["Tech", "Innovation"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Sarah Constantin",
+    url: "https://sarahconstantin.substack.com/",
+    author: "Sarah Constantin",
+    desc: "AI, writing, and culture.",
+    tags: ["AI", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Sasha Chapin",
+    url: "https://sashachapin.substack.com/",
+    author: "Sasha Chapin",
+    desc: "Life and wisdom.",
+    tags: ["Culture", "Philosophy"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Silver Bulletin",
+    url: "https://www.natesilver.net/",
+    author: "Nate Silver",
+    desc: "Sports, politics, statistics, and forecasting.",
+    tags: ["Politics", "Sports", "Data"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Jesse Singal",
+    url: "https://jessesingal.substack.com/",
+    author: "Jesse Singal",
+    desc: "Science and politics — evidence-focused, often contrarian.",
+    tags: ["Science", "Politics"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "The Skeptical Cardiologist",
+    url: "https://theskepticalcardiologist.substack.com/",
+    author: "",
+    desc: "Cardiology and healthcare.",
+    tags: ["Medicine", "Science"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Slow Boring",
+    url: "https://www.slowboring.com/",
+    author: "Matthew Yglesias",
+    desc: "Politics and public policy — pragmatic, moderate.",
+    tags: ["Politics", "Policy"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Starting from Nix",
+    url: "https://www.startingfromnix.com/",
+    author: "",
+    desc: "Literature, software, and technology.",
+    tags: ["Literature", "Tech"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Strange Loop Canon",
+    url: "https://www.strangeloopcanon.com/",
+    author: "",
+    desc: "AI, culture, society, technology, and science.",
+    tags: ["AI", "Culture", "Tech", "Science"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Strength in Numbers",
+    url: "https://www.gelliottmorris.com/",
+    author: "G. Elliott Morris",
+    desc: "Data-driven political analysis.",
+    tags: ["Politics", "Data"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Thing of Things",
+    url: "https://thingofthings.substack.com/",
+    author: "Ozy Brennan",
+    desc: "EA, rationalism, social sciences, and literature.",
+    tags: ["EA", "Rationalism", "Literature"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Sarah Thankam Mathews",
+    url: "https://smathewss.substack.com/",
+    author: "Sarah Thankam Mathews",
+    desc: "Literature, writing, beauty, and culture.",
+    tags: ["Literature", "Art", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Jim Dahl",
+    url: "https://jdahl.substack.com/",
+    author: "Jim Dahl",
+    desc: "Wisdom, interviews, writing, culture, ideas, technology, and science — great podcast too.",
+    tags: ["Culture", "Science", "Tech", "Philosophy"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Tomas Bjartur",
+    url: "https://tomasbjartur.substack.com/",
+    author: "Tomas Bjartur",
+    desc: "Science fiction writing.",
+    tags: ["Literature", "Sci-Fi"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Trench Warfare",
+    url: "https://trenchwarfare.substack.com/",
+    author: "Brandon Thorn",
+    desc: "NFL offensive line play and analysis.",
+    tags: ["Sports"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Trevor Klee",
+    url: "https://trevorklee.substack.com/",
+    author: "Trevor Klee",
+    desc: "Biology, healthcare, and more.",
+    tags: ["Biology", "Medicine"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "The Urban Condition",
+    url: "https://benjaminschneider.substack.com/",
+    author: "Benjamin Schneider",
+    desc: "Transit, urban policy, and housing.",
+    tags: ["Urban", "Policy"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Vik's Newsletter",
+    url: "https://www.viksnewsletter.com/",
+    author: "",
+    desc: "Chips and semiconductors.",
+    tags: ["Tech", "Hardware"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "What We Are",
+    url: "https://whatweare.substack.com/",
+    author: "",
+    desc: "EA and culture.",
+    tags: ["EA", "Culture"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Whirligig Bear",
+    url: "https://whirligigbear.substack.com/",
+    author: "",
+    desc: "Prediction markets, economics, and statistics.",
+    tags: ["Economics", "Data", "Decision Making"],
+    diff: 2,
+    fav: false
+  },
+  {
+    name: "Wicked Good Policy",
+    url: "https://www.wickedgoodpolicy.com/",
+    author: "Samarth Gupta",
+    desc: "Politics, taxes, and public policy.",
+    tags: ["Politics", "Policy"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Wide Left",
+    url: "https://www.wideleft.football/",
+    author: "Arif Hasan",
+    desc: "Longform NFL journalism.",
+    tags: ["Sports", "Journalism"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Works in Progress",
+    url: "https://www.worksinprogress.news/",
+    author: "",
+    desc: "Science, technology, and policy.",
+    tags: ["Science", "Tech", "Policy"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "The Reset",
+    url: "https://www.thereset.news/",
+    author: "Yashar Ali",
+    desc: "Breaking news, politics, antisemitism, alt-right journalism, and Iran.",
+    tags: ["Politics", "Journalism"],
+    diff: 1,
+    fav: false
+  },
+  {
+    name: "Yes I Give a Fig",
+    url: "https://www.yesigiveafig.com/",
+    author: "",
+    desc: "Markets and economics.",
+    tags: ["Economics", "Finance"],
+    diff: 1,
+    fav: false
+  }
+];
+
+const DIFF_LABELS = { 1: "Accessible", 2: "Some background", 3: "Technical" };
+const DIFF_CLASS  = { 1: "diff-1", 2: "diff-2", 3: "diff-3" };
+
+// Load favourites from localStorage
+const FAV_KEY = "rl-favs";
+function loadFavs() {
+  try { return JSON.parse(localStorage.getItem(FAV_KEY) || "{}"); } catch { return {}; }
+}
+function saveFavs(favs) {
+  try { localStorage.setItem(FAV_KEY, JSON.stringify(favs)); } catch {}
+}
+let favs = loadFavs();
+
+// Collect all tags
+const allTags = [...new Set(BLOGS.flatMap(b => b.tags))].sort();
+
+let activeTags = new Set();
+let searchQuery = "";
+
+// ── Render tag bar ──
+const tagBar = document.getElementById("tag-bar");
+const clearBtn = document.createElement("button");
+clearBtn.className = "tag-btn clear-btn";
+clearBtn.textContent = "Clear";
+clearBtn.onclick = () => { activeTags.clear(); renderTagBar(); renderGrid(); };
+
+allTags.forEach(tag => {
+  const btn = document.createElement("button");
+  btn.className = "tag-btn";
+  btn.dataset.tag = tag;
+  btn.textContent = tag;
+  btn.onclick = () => {
+    if (activeTags.has(tag)) activeTags.delete(tag);
+    else activeTags.add(tag);
+    renderTagBar();
+    renderGrid();
+  };
+  tagBar.appendChild(btn);
+});
+tagBar.appendChild(clearBtn);
+
+function renderTagBar() {
+  tagBar.querySelectorAll(".tag-btn[data-tag]").forEach(btn => {
+    btn.classList.toggle("active", activeTags.has(btn.dataset.tag));
+  });
+}
+
+// ── Render grid ──
+const grid = document.getElementById("rl-grid");
+const countEl = document.getElementById("rl-count");
+
+function matchesBlog(blog) {
+  const q = searchQuery.toLowerCase();
+  if (q) {
+    const hay = [blog.name, blog.author, blog.desc, ...blog.tags].join(" ").toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  if (activeTags.size > 0) {
+    if (!blog.tags.some(t => activeTags.has(t))) return false;
+  }
+  return true;
+}
+
+function renderGrid() {
+  grid.innerHTML = "";
+  const matches = BLOGS.filter(matchesBlog);
+
+  if (matches.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "rl-empty";
+    empty.textContent = "No blogs match your filters.";
+    grid.appendChild(empty);
+    countEl.textContent = "";
+    return;
+  }
+
+  countEl.textContent = `Showing ${matches.length} of ${BLOGS.length} blogs`;
+
+  // Sort: favourites first, then alphabetical
+  matches.sort((a, b) => {
+    const af = !!favs[a.url], bf = !!favs[b.url];
+    if (af !== bf) return af ? -1 : 1;
+    return a.name.localeCompare(b.name);
+  });
+
+  matches.forEach(blog => {
+    const card = document.createElement("div");
+    card.className = "rl-card";
+
+    const isFav = !!favs[blog.url];
+
+    // Top row
+    const top = document.createElement("div");
+    top.className = "card-top";
+
+    const titleWrap = document.createElement("div");
+    titleWrap.className = "card-title-wrap";
+
+    const a = document.createElement("a");
+    a.className = "card-title";
+    a.href = blog.url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.textContent = blog.name;
+    titleWrap.appendChild(a);
+
+    if (blog.author) {
+      const auth = document.createElement("div");
+      auth.className = "card-author";
+      auth.textContent = blog.author;
+      titleWrap.appendChild(auth);
+    }
+
+    const star = document.createElement("button");
+    star.className = "star-btn" + (isFav ? " starred" : "");
+    star.textContent = "★";
+    star.title = isFav ? "Remove from favourites" : "Mark as favourite";
+    star.setAttribute("aria-label", isFav ? "Unfavourite" : "Favourite");
+    star.onclick = () => {
+      if (favs[blog.url]) delete favs[blog.url];
+      else favs[blog.url] = true;
+      saveFavs(favs);
+      renderGrid();
+    };
+
+    top.appendChild(titleWrap);
+    top.appendChild(star);
+    card.appendChild(top);
+
+    // Description
+    const desc = document.createElement("p");
+    desc.className = "card-desc";
+    desc.textContent = blog.desc;
+    card.appendChild(desc);
+
+    // Footer: tags + difficulty
+    const footer = document.createElement("div");
+    footer.className = "card-footer";
+
+    blog.tags.forEach(tag => {
+      const pill = document.createElement("span");
+      pill.className = "tag-pill";
+      pill.textContent = tag;
+      footer.appendChild(pill);
+    });
+
+    const diff = document.createElement("span");
+    diff.className = "diff-badge " + DIFF_CLASS[blog.diff];
+    diff.textContent = DIFF_LABELS[blog.diff];
+    footer.appendChild(diff);
+
+    card.appendChild(footer);
+    grid.appendChild(card);
+  });
+}
+
+// ── Search ──
+document.getElementById("rl-search").addEventListener("input", e => {
+  searchQuery = e.target.value.trim();
+  renderGrid();
+});
+
+renderGrid();
+</script>
